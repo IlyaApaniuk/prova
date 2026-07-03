@@ -1,0 +1,76 @@
+{
+  "Meta": {
+    "title": "prova — pokaż umiejętności, nie CV",
+    "description": "Rekrutacja bez czekania: podoba się firma — od razu robisz krótkie zadanie i widzisz całą drogę do oferty."
+  },
+  "Nav": {
+    "howItWorks": "Jak to działa",
+    "forCompanies": "Dla firm",
+    "waitlist": "Wczesny dostęp"
+  },
+  "Theme": {
+    "toDark": "Tryb ciemny",
+    "toLight": "Tryb jasny"
+  },
+  "Hero": {
+    "eyebrow": "Rekrutacja bez czekania",
+    "title": "Pokaż umiejętności — i zobacz całą drogę do oferty.",
+    "titleAccent": "całą drogę do oferty",
+    "body": "Podoba się firma? Od razu zrób krótkie zadanie. Bez CV i bez tygodnia ciszy „czy ktoś w ogóle spojrzał”.",
+    "ctaPrimary": "Zobacz role",
+    "ctaSecondary": "Jak to działa"
+  },
+  "How": {
+    "eyebrow": "Jak to działa",
+    "title": "Trzy kroki, bez czarnej skrzynki",
+    "step1Title": "Wybierasz rolę",
+    "step1Body": "Widzisz widełki i całą drogę do oferty z góry.",
+    "step2Title": "Robisz zadanie",
+    "step2Body": "Standaryzowane zadanie — neutralny sprawdzian umiejętności, a nie kawałek realnej pracy firmy.",
+    "step3Title": "Widzisz status",
+    "step3Body": "Każdy etap jest podświetlony. Żadnego czekania po ciemku."
+  },
+  "Demo": {
+    "eyebrow": "Jak widzi to kandydat",
+    "title": "Rola, widełki i cała droga — od razu",
+    "companyMeta": "Interior Design · Berlin",
+    "role": "Middle Interior Designer",
+    "tagRemote": "Remote / hybryda",
+    "tagFulltime": "Full-time",
+    "tagField": "Residential",
+    "salaryPerMonth": "miesięcznie",
+    "step1Title": "Zadanie",
+    "step1Sub": "Układ studia 32 m² · bez realnego projektu",
+    "step1Time": "40 min",
+    "step2Title": "Ocena leada",
+    "step2Sub": "Ocenia senior designer studia",
+    "step2Time": "do 3 dni",
+    "step3Title": "Rozmowa końcowa",
+    "step3Sub": "Poznanie zespołu i oferta",
+    "step3Time": "30 min",
+    "note": "Zadanie jest standaryzowane przez platformę — to neutralny sprawdzian umiejętności, nigdy fragment pracy klienta.",
+    "cta": "Zrób zadanie",
+    "ctaSecondary": "Najpierw o studiu",
+    "statusEyebrow": "Status kandydata",
+    "statusSent": "Zadanie wysłane",
+    "statusLive": "Lead przegląda pracę",
+    "statusLiveNow": "teraz",
+    "statusNext": "Rozmowa końcowa",
+    "statusNextLabel": "dalej"
+  },
+  "Waitlist": {
+    "eyebrow": "Wczesny dostęp",
+    "title": "Chcesz tak rekrutować — czy tak przechodzić rozmowy?",
+    "body": "Zostaw e-mail — zaprosimy pierwszych.",
+    "roleCandidate": "Szukam pracy",
+    "roleCompany": "Rekrutuję",
+    "placeholder": "you@email.com",
+    "submit": "Zostaw e-mail",
+    "success": "Gotowe — jesteś na liście.",
+    "invalidEmail": "Sprawdź adres e-mail."
+  },
+  "Footer": {
+    "tagline": "Pokaż umiejętności, nie CV.",
+    "rights": "prova · {year}"
+  }
+}

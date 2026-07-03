@@ -1,0 +1,76 @@
+{
+  "Meta": {
+    "title": "prova — show your skills, not your résumé",
+    "description": "Hiring without the wait: like a company, take a short test right away and see the whole path to an offer."
+  },
+  "Nav": {
+    "howItWorks": "How it works",
+    "forCompanies": "For companies",
+    "waitlist": "Early access"
+  },
+  "Theme": {
+    "toDark": "Dark mode",
+    "toLight": "Light mode"
+  },
+  "Hero": {
+    "eyebrow": "Hiring without the wait",
+    "title": "Show your skills — and see the whole path to an offer.",
+    "titleAccent": "the whole path to an offer",
+    "body": "Like a company? Take a short test right away. No résumé, no week of silence wondering whether anyone even looked.",
+    "ctaPrimary": "Browse roles",
+    "ctaSecondary": "How it works"
+  },
+  "How": {
+    "eyebrow": "How it works",
+    "title": "Three steps, no black box",
+    "step1Title": "Pick a role",
+    "step1Body": "See the salary range and the whole path to an offer upfront.",
+    "step2Title": "Take the test",
+    "step2Body": "A standardized task — a neutral skill check, not a piece of the company's real work.",
+    "step3Title": "See your status",
+    "step3Body": "Every stage is lit up. No waiting in the dark."
+  },
+  "Demo": {
+    "eyebrow": "How a candidate sees it",
+    "title": "Role, range and the whole path — at once",
+    "companyMeta": "Interior Design · Berlin",
+    "role": "Middle Interior Designer",
+    "tagRemote": "Remote / hybrid",
+    "tagFulltime": "Full-time",
+    "tagField": "Residential",
+    "salaryPerMonth": "per month",
+    "step1Title": "Test task",
+    "step1Sub": "32 m² studio layout · not a real project",
+    "step1Time": "40 min",
+    "step2Title": "Lead review",
+    "step2Sub": "Assessed by a senior designer",
+    "step2Time": "up to 3 days",
+    "step3Title": "Final talk",
+    "step3Sub": "Meet the team and offer",
+    "step3Time": "30 min",
+    "note": "The task is standardized by the platform — a neutral skill check, never a slice of client work.",
+    "cta": "Take the test",
+    "ctaSecondary": "About the studio first",
+    "statusEyebrow": "Candidate status",
+    "statusSent": "Test submitted",
+    "statusLive": "Lead is reviewing",
+    "statusLiveNow": "now",
+    "statusNext": "Final talk",
+    "statusNextLabel": "next"
+  },
+  "Waitlist": {
+    "eyebrow": "Early access",
+    "title": "Want to hire this way — or interview this way?",
+    "body": "Leave your email — we'll invite the first ones.",
+    "roleCandidate": "I'm job hunting",
+    "roleCompany": "I'm hiring",
+    "placeholder": "you@email.com",
+    "submit": "Leave email",
+    "success": "Done — you're on the list.",
+    "invalidEmail": "Check your email address."
+  },
+  "Footer": {
+    "tagline": "Show your skills, not your résumé.",
+    "rights": "prova · {year}"
+  }
+}

@@ -1,26 +1,189 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
+
+/*
+  prova — visual language v0.2 (locked)
+  Architectural warm minimalism: warm paper + dark wood + matte graphite
+  + amber light + one cognac accent. Sharp corners, hairline borders.
+  Default theme is light ("day room"); .dark is the "evening room".
+*/
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* brand tokens — the material library */
+  --color-paper: var(--paper);
+  --color-sand: var(--sand);
+  --color-greige: var(--greige);
+  --color-taupe: var(--taupe);
+  --color-wood: var(--wood);
+  --color-wood-deep: var(--wood-deep);
+  --color-graphite: var(--graphite);
+  --color-cognac: var(--cognac);
+  --color-cognac-deep: var(--cognac-deep);
+  --color-amber: var(--amber);
+  --color-hairline: var(--hairline);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+  --font-heading: var(--font-serif);
+
+  /* sharp — architectural, not bubbly */
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --ease-room: cubic-bezier(0.2, 0, 0.1, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.25rem;
+
+  /* light — "day room" */
+  --background: #e7e1d6;
+  --foreground: #2a2620;
+  --card: #f3efe7;
+  --card-foreground: #2a2620;
+  --popover: #f3efe7;
+  --popover-foreground: #2a2620;
+  --primary: #2c2521; /* matte graphite/espresso — the action */
+  --primary-foreground: #efe8da;
+  --secondary: #dfd7c9;
+  --secondary-foreground: #2a2620;
+  --muted: #dfd7c9;
+  --muted-foreground: #7a7264;
+  --accent: #e0d9cc; /* subtle hover surface — NOT cognac */
+  --accent-foreground: #2a2620;
+  --destructive: #a23b2c;
+  --border: #cfc6b6;
+  --input: #cfc6b6;
+  --ring: #a8623b; /* cognac focus */
+
+  --paper: #f3efe7;
+  --sand: #e7e1d6;
+  --greige: #dfd7c9;
+  --taupe: #b7ae9f;
+  --wood: #6b5645;
+  --wood-deep: #2c2521;
+  --graphite: #26241f;
+  --cognac: #a8623b;
+  --cognac-deep: #8f4e2c;
+  --amber: #e9c98a;
+  --hairline: #c3b9a7;
+
+  --chart-1: #6b5645;
+  --chart-2: #a8623b;
+  --chart-3: #b7ae9f;
+  --chart-4: #e9c98a;
+  --chart-5: #2c2521;
+
+  --sidebar: #f3efe7;
+  --sidebar-foreground: #2a2620;
+  --sidebar-primary: #2c2521;
+  --sidebar-primary-foreground: #efe8da;
+  --sidebar-accent: #e0d9cc;
+  --sidebar-accent-foreground: #2a2620;
+  --sidebar-border: #cfc6b6;
+  --sidebar-ring: #a8623b;
+}
+
+.dark {
+  /* dark — "evening room" */
+  --background: #201b17;
+  --foreground: #ece4d7;
+  --card: #29231e;
+  --card-foreground: #ece4d7;
+  --popover: #29231e;
+  --popover-foreground: #ece4d7;
+  --primary: #be744a; /* in dark, the action carries the warm voice */
+  --primary-foreground: #1b1611;
+  --secondary: #322b24;
+  --secondary-foreground: #ece4d7;
+  --muted: #322b24;
+  --muted-foreground: #a79c8a;
+  --accent: #322b24;
+  --accent-foreground: #ece4d7;
+  --destructive: #c25a48;
+  --border: #3c352d;
+  --input: #3c352d;
+  --ring: #be744a;
+
+  --paper: #29231e;
+  --sand: #201b17;
+  --greige: #322b24;
+  --taupe: #6e6558;
+  --wood: #8a705a;
+  --wood-deep: #17130f;
+  --graphite: #ece4d7;
+  --cognac: #be744a;
+  --cognac-deep: #a85f38;
+  --amber: #e9c98a;
+  --hairline: #453d34;
+
+  --chart-1: #8a705a;
+  --chart-2: #be744a;
+  --chart-3: #b7ae9f;
+  --chart-4: #e9c98a;
+  --chart-5: #ece4d7;
+
+  --sidebar: #29231e;
+  --sidebar-foreground: #ece4d7;
+  --sidebar-primary: #be744a;
+  --sidebar-primary-foreground: #1b1611;
+  --sidebar-accent: #322b24;
+  --sidebar-accent-foreground: #ece4d7;
+  --sidebar-border: #3c352d;
+  --sidebar-ring: #be744a;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-serif;
+  }
 }
