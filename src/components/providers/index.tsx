@@ -1,7 +1,7 @@
 "use client";
 
-import { PostHogProvider } from "@/lib/posthog/provider";
-import { ThemeProvider } from "@/components/theme-provider";
+import { PostHogProvider } from "./posthog-provider";
+import { ThemeProvider } from "./theme-provider";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
