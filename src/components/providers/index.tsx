@@ -1,17 +1,9 @@
 "use client";
 
 import { PostHogProvider } from "./posthog-provider";
-import { ThemeProvider } from "./theme-provider";
 
+// ThemeProvider (next-themes) returns together with the app UI —
+// the landing stages its own light and must not depend on a theme.
 export function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="light"
-      enableSystem={false}
-      disableTransitionOnChange
-    >
-      <PostHogProvider>{children}</PostHogProvider>
-    </ThemeProvider>
-  );
+  return <PostHogProvider>{children}</PostHogProvider>;
 }

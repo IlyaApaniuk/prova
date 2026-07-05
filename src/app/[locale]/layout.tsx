@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Manrope, Spectral } from "next/font/google";
+import { JetBrains_Mono, Manrope, Spectral } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -23,9 +23,11 @@ const serif = Spectral({
   display: "swap",
 });
 
-const mono = Geist_Mono({
+// JetBrains Mono over Geist Mono: full Cyrillic coverage, so mono labels
+// keep identical metrics across en/uk/ru/pl instead of falling back.
+const mono = JetBrains_Mono({
   variable: "--font-mono",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   display: "swap",
 });
 
