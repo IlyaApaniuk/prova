@@ -5,8 +5,10 @@
 Task-first hiring. An interested candidate goes straight to a company's short,
 standardized test task — no résumé, no "did they pick me?" wait. The platform
 guarantees the task is a neutral skill check, never a slice of real client work.
-First goal is validating the approach (landing + waitlist), not building a full
-ATS/pipeline builder.
+Pilot: two Kyiv interior design studios; domain prova.careers.
+
+**Canonical product decisions live in `docs/product-spec.md`** — read it before
+building any candidate/company-facing feature.
 
 ## Commands
 
@@ -59,4 +61,6 @@ the primary action is graphite in light, cognac in dark.
   `supabase/`, `public/{images,documents}/`, `src/{content,hooks,stores}/`,
   `src/lib/{email/templates,geo}/`, `src/app/api/{auth,webhooks,cron,og}/`,
   `src/app/[locale]/{auth,dashboard,admin}/`.
-- Copy: Russian-primary, write from the candidate's side, active voice.
+- Copy: English-primary (en is the default locale; uk/ru/pl follow), write from
+  the candidate's side, active voice. Honest timings — never understate how
+  long a test task takes.
