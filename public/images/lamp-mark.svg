@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="lampGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#E9C98A" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#E9C98A" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#E9C98A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" fill="#201B17"/>
+  <ellipse cx="32" cy="49" rx="20" ry="11" fill="url(#lampGlow)"/>
+  <line x1="32" y1="6" x2="32" y2="21" stroke="#6E6558" stroke-width="2"/>
+  <rect x="29" y="21" width="6" height="3" fill="#8A6F47"/>
+  <rect x="20" y="24" width="24" height="18" fill="#EFE4CC"/>
+  <ellipse cx="32" cy="42" rx="12" ry="2.6" fill="#FFEFC4"/>
+</svg>
