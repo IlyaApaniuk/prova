@@ -104,6 +104,20 @@
   /* scope semantic tokens so LocaleSwitcher follows the landing's light */
   --foreground: var(--l-ink);
   --muted-foreground: var(--l-mut);
+  --border: #453d34;
+  --popover: #29231e;
+  --popover-foreground: #ece4d7;
+  --accent: #322b24;
+  --accent-foreground: #ece4d7;
+  --cognac: #be744a;
+}
+.lights-landing[data-lit="true"] .ll-topbar {
+  --border: #c3b9a7;
+  --popover: #f3efe7;
+  --popover-foreground: #2a2620;
+  --accent: #e0d9cc;
+  --accent-foreground: #2a2620;
+  --cognac: #a8623b;
 }
 .ll-wordmark {
   font-family: var(--font-serif);
@@ -659,21 +673,51 @@
   font-size: clamp(1.9rem, 5vw, 3.4rem);
 }
 
+/* mobile scrollytelling: the lamp owns the top ~40svh as a pinned stage,
+   chapter text lives below it — full opacity, no overlap */
 @media (max-width: 760px) {
   .ll-stage {
-    grid-template-columns: 1fr;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 4.25rem;
   }
   .ll-stage .lamp-wrap {
-    grid-column: 1;
-    opacity: 0.38;
-    height: 82svh;
+    height: min(40svh, 380px);
+  }
+  .ll-chapter {
+    align-items: flex-start;
+    padding-top: calc(4.25rem + min(40svh, 380px) + 1.5rem);
   }
   .ll-chapter .box {
+    max-width: 100%;
+  }
+  .ll-chapter h2 {
+    font-size: clamp(1.5rem, 6.4vw, 1.9rem);
+  }
+  .ll-chapter p.body {
+    font-size: 0.95rem;
+  }
+  /* dimension callouts stay legible when the svg scales down */
+  .lamp .dim-label {
+    font-size: 17px;
+  }
+  .ll-flash {
+    right: calc(50vw - 5px);
+    top: 24svh;
+  }
+  .ll-hero h1 {
     max-width: 100%;
   }
   .ll-section-head {
     text-align: left;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .ll-topbar .tag > span {
+    display: none;
   }
 }
 

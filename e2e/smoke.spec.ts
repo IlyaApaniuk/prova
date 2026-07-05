@@ -17,6 +17,6 @@ test("landing renders the hero, chapters and waitlist", async ({ page }) => {
 test("russian locale renders translated hero", async ({ page }) => {
   await page.goto("/ru");
   await expect(
-    page.getByRole("heading", { level: 1, name: /включённом свете/i }),
+    page.getByRole("heading", { level: 1, name: /каждый шаг/i }),
   ).toBeVisible();
 });

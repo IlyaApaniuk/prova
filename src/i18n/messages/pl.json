@@ -1,14 +1,14 @@
 {
   "Meta": {
-    "title": "prova — rekrutacja przy zapalonym świetle",
-    "description": "Task-first rekrutacja: pokaż umiejętność na krótkim neutralnym zadaniu i zobacz każdy etap drogi do oferty. Bez filtra CV, bez czekania po ciemku."
+    "title": "prova — rekrutacja, w której widać każdy krok",
+    "description": "Task-first rekrutacja: pokaż umiejętność na krótkim neutralnym zadaniu i śledź każdy krok drogi do oferty. Bez filtra CV, bez czekania po ciemku."
   },
   "Landing": {
     "protoTag": "prova.careers",
-    "heroTitle": "Rekrutacja przy",
-    "heroAccent": "zapalonym świetle.",
-    "heroSub": "Pokaż umiejętność na <b>krótkim neutralnym zadaniu</b> — bez filtra CV, listów motywacyjnych i czekania po ciemku. Widzisz <b>każdy etap</b> drogi do oferty. Scrolluj — zbudujemy lampę.",
-    "scrollHint": "scrolluj — od szkicu do światła",
+    "heroTitle": "Rekrutacja, w której widać",
+    "heroAccent": "każdy krok.",
+    "heroSub": "Pokaż umiejętność na <b>krótkim neutralnym zadaniu</b> — bez filtra CV, listów motywacyjnych i czekania po ciemku. Widzisz <b>całą drogę</b> do oferty. Przewijaj — zbudujemy lampę.",
+    "scrollHint": "przewijaj — od szkicu do światła",
     "ch1Step": "Krok 01 — Zadanie",
     "ch1Title": "Podoba ci się studio? <em>Zacznij kreślić.</em>",
     "ch1Body": "Bez filtra CV i listów motywacyjnych. Krótkie <b>neutralne zadanie</b> — standaryzowane przez prova, nigdy fragment realnego projektu — to całe zgłoszenie. Uczciwy szacunek czasu w każdym briefie.",
@@ -48,7 +48,7 @@
     "cardPolicy": "Standaryzowane przez prova — neutralny sprawdzian umiejętności z uczciwym szacunkiem czasu, nigdy darmowa praca dla klienta.",
     "cardCta": "Zrób zadanie →",
     "wlLabel": "Wczesny dostęp",
-    "wlTitle": "Chcesz rekrutować się <em>przy zapalonym świetle?</em>",
+    "wlTitle": "Chcesz rekrutować się tam, <em>gdzie widać wszystko?</em>",
     "wlStudioLine": "Prowadzisz studio? Pilot trwa — każdy kandydat w twojej kolejce już wykonał pracę. Wybierz „Rekrutuję” powyżej.",
     "footerTagline": "Pokaż umiejętności, nie CV.",
     "footerRights": "prova.careers · {year}"
