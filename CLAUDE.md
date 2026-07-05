@@ -44,13 +44,19 @@ the primary action is graphite in light, cognac in dark.
 
 ## Conventions
 
-- i18n: every page lives under `src/app/[locale]/`. Add UI copy to all four
-  `messages/*.json`. Routing config in `src/i18n/`. Locale routing runs in
-  `src/proxy.ts` (Next 16 renamed `middleware` → `proxy`).
+- i18n: pages live under `src/app/[locale]/`; public pages in the
+  `(marketing)` route group. Add UI copy to all four
+  `src/i18n/messages/*.json`. Routing config in `src/i18n/`. Locale routing
+  runs in `src/proxy.ts` (Next 16 renamed `middleware` → `proxy`).
 - Server Actions in `src/app/actions/`. Validate with a shared zod schema
   (`src/lib/validation/`) reused by the client form.
-- shadcn components in `src/components/ui/` (knip-ignored). App components in
-  `src/components/`, site sections in `src/components/site/`.
+- shadcn primitives in `src/components/ui/` (knip-ignored). Providers in
+  `src/components/providers/` (`Providers` = theme + posthog). Feature/site
+  components in `src/components/<feature>/`.
 - Prisma client: import `{ prisma }` from `@/lib/prisma`. Supabase:
-  `@/lib/supabase/{client,server}`.
+  `@/lib/supabase/{client,server}`. Seed: `prisma/seed.ts` (`npx prisma db seed`).
+- Directory skeleton (some dirs are placeholders for now): `docs/`, `scripts/`,
+  `supabase/`, `public/{images,documents}/`, `src/{content,hooks,stores}/`,
+  `src/lib/{email/templates,geo}/`, `src/app/api/{auth,webhooks,cron,og}/`,
+  `src/app/[locale]/{auth,dashboard,admin}/`.
 - Copy: Russian-primary, write from the candidate's side, active voice.

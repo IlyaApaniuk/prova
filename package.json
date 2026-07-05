@@ -17,6 +17,9 @@
     "format:check": "prettier --check .",
     "prepare": "husky"
   },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "lint-staged": {
     "*.{ts,tsx,mjs,cjs,js}": [
       "eslint --fix",

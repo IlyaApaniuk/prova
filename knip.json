@@ -9,7 +9,6 @@
     "class-variance-authority",
     "radix-ui",
     "shadcn",
-    "tsx",
     "@testing-library/react",
     "@supabase/ssr",
     "@supabase/supabase-js"
