@@ -12,6 +12,9 @@ building any candidate/company-facing feature.
 
 ## Commands
 
+- Local DB: `docker compose up -d` (Postgres on **5434** — 5432/5433 belong to
+  other projects), then `npx prisma migrate deploy && npx prisma db seed`.
+  `.env` points at it; see `.env.example`.
 - `npm run dev` — dev server (runs `prisma generate` first)
 - `npm run build` — production build
 - `npm run typecheck` — `tsc --noEmit`
