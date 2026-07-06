@@ -13,6 +13,7 @@
   /* the warm voice: amber in the dark act, cognac once the lights are on */
   --l-warm: #e9c98a;
   --ll-ease: cubic-bezier(0.2, 0, 0.1, 1);
+  --ll-pad: clamp(1.25rem, 3vw, 2.5rem);
 
   position: relative;
   overflow-x: clip;
@@ -100,7 +101,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.1rem clamp(1.25rem, 4vw, 3rem);
+  padding: 1.1rem var(--ll-pad);
   /* scope semantic tokens so LocaleSwitcher follows the landing's light */
   --foreground: var(--l-ink);
   --muted-foreground: var(--l-mut);
@@ -154,7 +155,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(5rem, 12vh, 8rem) clamp(1.25rem, 4vw, 3rem) 8rem;
+  padding: clamp(5rem, 12vh, 8rem) var(--ll-pad) 8rem;
   position: relative;
 }
 .ll-hero h1 {
@@ -185,7 +186,7 @@
 }
 .ll-hero .sub {
   margin: 2rem 0 0;
-  max-width: 46ch;
+  max-width: 62ch;
   color: var(--l-mut);
   font-size: clamp(1rem, 1.4vw, 1.2rem);
 }
@@ -196,7 +197,7 @@
 .ll-scroll-hint {
   position: absolute;
   bottom: 2rem;
-  left: clamp(1.25rem, 4vw, 3rem);
+  left: var(--ll-pad);
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -265,10 +266,10 @@
   min-height: 100svh;
   display: flex;
   align-items: center;
-  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  padding: 0 var(--ll-pad);
 }
 .ll-chapter .box {
-  max-width: 30rem;
+  max-width: min(44rem, 46vw);
 }
 .ll-chapter .step {
   font-family: var(--font-mono);
@@ -302,7 +303,6 @@
 }
 .ll-chapter p.body {
   color: var(--l-mut);
-  max-width: 42ch;
   margin: 0;
 }
 .ll-chapter p.body b {
@@ -347,7 +347,7 @@
   z-index: 3;
 }
 .ll-section {
-  padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+  padding: clamp(4rem, 9vw, 7rem) var(--ll-pad);
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -633,7 +633,7 @@
 /* footer */
 .ll-footer {
   border-top: 1px solid var(--l-line);
-  padding: 2rem clamp(1.25rem, 4vw, 3rem) 3rem;
+  padding: 2rem var(--ll-pad) 3rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;

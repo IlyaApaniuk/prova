@@ -54,7 +54,9 @@ export function LightsLanding() {
     offset: ["start start", "end end"],
   });
 
-  const drawScrub = useTransform(scrollYProgress, [0.02, 0.16], [0, 1]);
+  // Sketch is fully drawn by mid-chapter-1 — strokes appear immediately
+  // as the spine enters, not after the reader has settled into the text.
+  const drawScrub = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
   const drawStatic = useTransform(scrollYProgress, () => 1);
   const bg = useTransform(
     scrollYProgress,
