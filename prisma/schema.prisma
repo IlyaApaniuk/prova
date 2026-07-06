@@ -1,5 +1,6 @@
 // prova database schema
-// Supabase Postgres via Prisma. See .env.example for connection strings.
+// Supabase Postgres via Prisma 6. Canonical model reference: docs/product-spec.md.
+// userId fields reference Supabase auth users (no FK — auth lives in its own schema).
 
 generator client {
   provider = "prisma-client-js"
@@ -10,6 +11,8 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
+// ---------- waitlist (live since scaffold) ----------
 
 enum WaitlistRole {
   candidate
@@ -24,4 +27,186 @@ model WaitlistSignup {
   createdAt DateTime     @default(now())
 
   @@index([role])
+}
+
+// ---------- core enums ----------
+
+enum ExperienceBand {
+  UNDER_1
+  ONE_TO_3
+  THREE_TO_6
+  SIX_PLUS
+}
+
+enum Seniority {
+  JUNIOR
+  MIDDLE
+  SENIOR
+  LEAD
+}
+
+enum WorkFormat {
+  OFFICE
+  HYBRID
+  REMOTE
+}
+
+enum VacancyStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+}
+
+enum VacancyCloseReason {
+  HIRED_VIA_PROVA
+  HIRED_ELSEWHERE
+  CANCELLED
+}
+
+enum ApplicationStatus {
+  STARTED
+  SUBMITTED
+  IN_REVIEW
+  INTERESTED
+  MATCHED
+  FINAL
+  HIRED
+  DECLINED
+  WITHDRAWN
+  EXPIRED
+}
+
+enum EventActor {
+  CANDIDATE
+  COMPANY
+  SYSTEM
+}
+
+// ---------- candidate ----------
+
+model CandidateProfile {
+  id             String         @id @default(cuid())
+  userId         String         @unique // Supabase auth user
+  firstName      String
+  lastName       String
+  photoUrl       String?
+  city           String
+  country        String
+  experience     ExperienceBand
+  software       String[]
+  headline       String?
+  portfolioLinks String[]
+  cvFileUrl      String?
+  isIncognito    Boolean        @default(false)
+  employment     Json? // [{ title, company, years }] — optional rows
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  applications Application[]
+}
+
+// ---------- studio ----------
+
+model Studio {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  logoUrl   String?
+  city      String
+  country   String
+  about     String?
+  links     Json?
+  showcase  Json? // [{ imageUrl, title }]
+  createdAt DateTime @default(now())
+
+  members   StudioMember[]
+  vacancies Vacancy[]
+}
+
+model StudioMember {
+  id       String  @id @default(cuid())
+  studioId String
+  userId   String  @unique // one login per studio in v1
+  name     String
+  role     String? // "Senior designer" — shown as reviewer
+  photoUrl String?
+
+  studio Studio @relation(fields: [studioId], references: [id])
+}
+
+// ---------- vacancy ----------
+
+model Vacancy {
+  id                 String              @id @default(cuid())
+  studioId           String
+  slug               String              @unique
+  title              String
+  seniority          Seniority
+  format             WorkFormat
+  city               String?
+  employmentType     String // full-time / part-time / contract
+  salaryMin          Int?
+  salaryMax          Int?
+  currency           String?
+  software           String[]
+  languages          String[]
+  descriptionMd      String
+  briefMd            String
+  briefFileUrl       String?
+  briefPublic        Boolean             @default(true)
+  expectedTimeMin    Int // honest minutes
+  status             VacancyStatus       @default(DRAFT)
+  validThrough       DateTime?
+  closeReason        VacancyCloseReason?
+  hiredApplicationId String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  studio       Studio        @relation(fields: [studioId], references: [id])
+  applications Application[]
+
+  @@index([status])
+  @@index([studioId])
+}
+
+// ---------- application ----------
+
+model Application {
+  id                String            @id @default(cuid())
+  vacancyId         String
+  candidateId       String
+  status            ApplicationStatus @default(STARTED)
+  submissionFileUrl String?
+  submissionLink    String?
+  submissionComment String?
+  interestMessage   String? // company → candidate, at "interested"
+  declineReason     String? // required when DECLINED
+  revealedAt        DateTime? // incognito reveal grant (per application = per studio)
+  submittedAt       DateTime?
+  reviewedAt        DateTime? // first lead view
+  matchedAt         DateTime?
+  closedAt          DateTime?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  vacancy   Vacancy            @relation(fields: [vacancyId], references: [id])
+  candidate CandidateProfile   @relation(fields: [candidateId], references: [id])
+  events    ApplicationEvent[]
+
+  @@unique([vacancyId, candidateId])
+  @@index([status])
+  @@index([candidateId])
+}
+
+model ApplicationEvent {
+  id            String     @id @default(cuid())
+  applicationId String
+  actor         EventActor
+  type          String // status_changed, nudge_sent, outcome_reported, …
+  payload       Json?
+  createdAt     DateTime   @default(now())
+
+  application Application @relation(fields: [applicationId], references: [id])
+
+  @@index([applicationId, createdAt])
 }
