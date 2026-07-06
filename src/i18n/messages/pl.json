@@ -46,12 +46,12 @@
     "d4Sub": "Rozmowa i oferta — bezpośrednio ze studiem",
     "d4Time": "—",
     "cardPolicy": "Standaryzowane przez prova — neutralny sprawdzian umiejętności z uczciwym szacunkiem czasu, nigdy darmowa praca dla klienta.",
-    "cardCta": "Zrób zadanie →",
     "wlLabel": "Wczesny dostęp",
     "wlTitle": "Chcesz rekrutować się tam, <em>gdzie widać wszystko?</em>",
     "wlStudioLine": "Prowadzisz studio? Pilot trwa — każdy kandydat w twojej kolejce już wykonał pracę. Wybierz „Rekrutuję” powyżej.",
     "footerTagline": "Pokaż umiejętności, nie CV.",
-    "footerRights": "prova.careers · {year}"
+    "footerRights": "prova.careers · {year}",
+    "browseCta": "Zobacz otwarte role →"
   },
   "Waitlist": {
     "ariaRole": "Jestem…",

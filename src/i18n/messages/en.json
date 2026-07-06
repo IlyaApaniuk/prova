@@ -46,12 +46,12 @@
     "d4Sub": "Interview & offer, straight with the studio",
     "d4Time": "—",
     "cardPolicy": "Standardized by prova — a neutral skill check with an honest time estimate, never unpaid client work.",
-    "cardCta": "Start the test →",
     "wlLabel": "Early access",
     "wlTitle": "Want to interview <em>with the lights on?</em>",
     "wlStudioLine": "Running a studio? The pilot is onboarding now — every candidate in your queue has already done the work. Pick “I'm hiring” above.",
     "footerTagline": "Show your skills, not your résumé.",
-    "footerRights": "prova.careers · {year}"
+    "footerRights": "prova.careers · {year}",
+    "browseCta": "Browse open roles →"
   },
   "Waitlist": {
     "ariaRole": "I am…",

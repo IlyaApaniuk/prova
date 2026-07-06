@@ -48,3 +48,15 @@ test("unknown vacancy 404s", async ({ page }) => {
   const response = await page.goto("/en/jobs/nope");
   expect(response?.status()).toBe(404);
 });
+
+test("landing links to the jobs list", async ({ page }) => {
+  await page.goto("/en");
+  await page
+    .getByRole("banner")
+    .getByRole("link", { name: /open roles/i })
+    .click();
+  await expect(page).toHaveURL(/\/en\/jobs$/);
+  await expect(
+    page.getByRole("heading", { level: 1, name: /open roles/i }),
+  ).toBeVisible();
+});
