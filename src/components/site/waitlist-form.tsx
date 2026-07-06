@@ -54,10 +54,13 @@ export function WaitlistForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center gap-3"
+    >
       <div
         role="radiogroup"
-        aria-label={t("eyebrow")}
+        aria-label={t("ariaRole")}
         className="border-hairline inline-flex w-fit border"
       >
         {waitlistRoles.map((option) => (
@@ -79,7 +82,7 @@ export function WaitlistForm() {
         ))}
       </div>
 
-      <div className="flex flex-col gap-2 sm:flex-row">
+      <div className="flex flex-col justify-center gap-2 sm:flex-row">
         <input
           type="email"
           autoComplete="email"
