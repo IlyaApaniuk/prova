@@ -1,0 +1,29 @@
+# Local development database.
+# Port 5434 on purpose — 5432/5433 are taken by other projects' Postgres.
+#
+#   docker compose up -d
+#   npx prisma migrate deploy && npx prisma db seed
+#
+# Auth/Storage are NOT here: when feat/auth lands we either run a trimmed
+# `supabase start` (db+auth+mailpit) or point at the cloud project.
+
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: prova-postgres
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: prova
+    volumes:
+      - prova-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d prova"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  prova-pgdata:
