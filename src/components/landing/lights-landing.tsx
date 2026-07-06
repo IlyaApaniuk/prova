@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import { Fragment, useRef, useState } from "react";
 import { LocaleSwitcher } from "@/components/site/locale-switcher";
 import { WaitlistForm } from "@/components/site/waitlist-form";
+import { Link } from "@/i18n/navigation";
 import { Lamp } from "./lamp";
 import "./landing.css";
 
@@ -44,6 +45,7 @@ function MarqueeTrack() {
 
 export function LightsLanding() {
   const t = useTranslations("Landing");
+  const tJobs = useTranslations("Jobs");
   const reduce = useReducedMotion();
   const spineRef = useRef<HTMLDivElement>(null);
   const [chapter, setChapter] = useState(0);
@@ -137,6 +139,9 @@ export function LightsLanding() {
         </a>
         <div className="tag">
           <span>{t("protoTag")}</span>
+          <Link className="nav-link" href="/jobs">
+            {tJobs("listTitle")}
+          </Link>
           <LocaleSwitcher />
         </div>
       </header>
@@ -249,9 +254,9 @@ export function LightsLanding() {
               </div>
               <p className="ll-policy">{t("cardPolicy")}</p>
               <div className="cta-row">
-                <a className="ll-btn" href="#waitlist">
-                  {t("cardCta")}
-                </a>
+                <Link className="ll-btn" href="/jobs">
+                  {t("browseCta")}
+                </Link>
               </div>
             </article>
           </div>

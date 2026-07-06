@@ -7,7 +7,6 @@
     "tailwindcss",
     "tw-animate-css",
     "class-variance-authority",
-    "radix-ui",
     "shadcn",
     "@testing-library/react",
     "@supabase/ssr",
