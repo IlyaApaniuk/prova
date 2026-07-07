@@ -1,9 +1,18 @@
 import { getTranslations } from "next-intl/server";
+import { signOut } from "@/app/actions/auth";
 import { LocaleSwitcher } from "@/components/site/locale-switcher";
 import { Link } from "@/i18n/navigation";
+import { getUser } from "@/lib/auth/session";
 
 export async function SiteHeader() {
-  const t = await getTranslations("Jobs");
+  const [t, tAuth, user] = await Promise.all([
+    getTranslations("Jobs"),
+    getTranslations("Auth"),
+    getUser(),
+  ]);
+
+  const navLinkClass =
+    "text-muted-foreground hover:text-foreground focus-visible:outline-cognac font-mono text-[0.7rem] tracking-[0.12em] uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2";
 
   return (
     <header className="border-hairline border-b">
@@ -16,12 +25,26 @@ export async function SiteHeader() {
           prova
         </Link>
         <nav className="flex items-center gap-4">
-          <Link
-            href="/jobs"
-            className="text-muted-foreground hover:text-foreground focus-visible:outline-cognac font-mono text-[0.7rem] tracking-[0.12em] uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
-          >
+          <Link href="/jobs" className={navLinkClass}>
             {t("listTitle")}
           </Link>
+          {user ? (
+            <form action={signOut} className="flex items-center gap-3">
+              <span
+                className="text-muted-foreground hidden max-w-[18ch] truncate font-mono text-[0.7rem] sm:inline"
+                title={user.email ?? undefined}
+              >
+                {user.email}
+              </span>
+              <button type="submit" className={navLinkClass}>
+                {tAuth("signOutCta")}
+              </button>
+            </form>
+          ) : (
+            <Link href="/auth/sign-in" className={navLinkClass}>
+              {tAuth("signInCta")}
+            </Link>
+          )}
           <LocaleSwitcher />
         </nav>
       </div>

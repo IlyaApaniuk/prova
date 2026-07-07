@@ -2,14 +2,12 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": ["e2e/**/*.spec.ts"],
   "project": ["src/**/*.{ts,tsx}"],
-  "ignore": ["src/components/ui/**", "src/lib/supabase/**"],
+  "ignore": ["src/components/ui/**"],
   "ignoreDependencies": [
     "tailwindcss",
     "tw-animate-css",
     "class-variance-authority",
     "shadcn",
-    "@testing-library/react",
-    "@supabase/ssr",
-    "@supabase/supabase-js"
+    "@testing-library/react"
   ]
 }

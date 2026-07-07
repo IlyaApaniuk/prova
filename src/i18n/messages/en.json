@@ -93,5 +93,25 @@
     "studioRoles": "Open roles",
     "website": "Website",
     "validThrough": "Open until {date}"
+  },
+  "Auth": {
+    "eyebrow": "Account",
+    "title": "Sign in",
+    "subtitle": "One account to take test tasks and see exactly where you stand. No passwords — we email you a sign-in link.",
+    "googleCta": "Continue with Google",
+    "or": "or",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "emailInvalid": "Enter a valid email address.",
+    "sendCta": "Send sign-in link",
+    "sending": "Sending…",
+    "sentTitle": "Check your inbox",
+    "sentBody": "We sent a sign-in link to {email}. It stays valid for one hour.",
+    "sentAgain": "Use a different email",
+    "errorAuth": "Sign-in didn't go through. Please try again.",
+    "errorLink": "That link has expired or was already used. Request a new one below.",
+    "noPasswords": "First time here? The same link creates your account — nothing else to fill in.",
+    "signInCta": "Sign in",
+    "signOutCta": "Sign out"
   }
 }
