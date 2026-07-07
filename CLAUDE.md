@@ -12,16 +12,21 @@ building any candidate/company-facing feature.
 
 ## Commands
 
-- Local DB: `docker compose up -d` (Postgres on **5434** — 5432/5433 belong to
-  other projects), then `npx prisma migrate deploy && npx prisma db seed`.
-  `.env` points at it; see `.env.example`.
+- Local stack: `supabase start` (trimmed local Supabase — db/auth/api/studio/
+  mailpit; config in `supabase/config.toml`). Ports are **55321–55324**
+  (API/db/studio/mailpit) — the default 54xxx block belongs to passflat.
+  Then `npx prisma migrate deploy && npx prisma db seed`. `.env` points at it;
+  see `.env.example`. Magic-link emails land in Mailpit:
+  http://127.0.0.1:55324.
 - `npm run dev` — dev server (runs `prisma generate` first)
 - `npm run build` — production build
 - `npm run typecheck` — `tsc --noEmit`
 - `npm run lint` — ESLint (flat config)
 - `npm run knip` — dead-code / unused deps
 - `npm test` / `npm run test:watch` — Vitest (business logic only)
-- `npm run test:e2e` — Playwright chromium smoke
+- `npm run test:e2e` — Playwright chromium smoke. `E2E_AUTH=1 npm run test:e2e`
+  additionally runs the real magic-link flow against the local Supabase stack
+  (skipped in CI).
 - `npm run format` — Prettier write
 
 CI (`.github/workflows/ci.yml`) runs lint → typecheck → knip → test → build,

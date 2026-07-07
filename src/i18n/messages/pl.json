@@ -93,5 +93,25 @@
     "studioRoles": "Otwarte role",
     "website": "Strona",
     "validThrough": "Otwarta do {date}"
+  },
+  "Auth": {
+    "eyebrow": "Konto",
+    "title": "Zaloguj się",
+    "subtitle": "Jedno konto, żeby wykonywać zadania testowe i widzieć, na którym jesteś kroku. Bez haseł — wysyłamy link do logowania na e-mail.",
+    "googleCta": "Kontynuuj z Google",
+    "or": "lub",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "you@example.com",
+    "emailInvalid": "Podaj poprawny adres e-mail.",
+    "sendCta": "Wyślij link do logowania",
+    "sending": "Wysyłamy…",
+    "sentTitle": "Sprawdź skrzynkę",
+    "sentBody": "Wysłaliśmy link do logowania na {email}. Jest ważny przez godzinę.",
+    "sentAgain": "Użyj innego adresu",
+    "errorAuth": "Logowanie się nie powiodło. Spróbuj ponownie.",
+    "errorLink": "Link wygasł lub został już użyty. Poproś o nowy poniżej.",
+    "noPasswords": "Pierwszy raz tutaj? Ten sam link utworzy konto — nic więcej nie trzeba wypełniać.",
+    "signInCta": "Zaloguj się",
+    "signOutCta": "Wyloguj się"
   }
 }

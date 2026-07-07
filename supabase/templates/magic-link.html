@@ -1,0 +1,10 @@
+<h2>Sign in to prova</h2>
+<p>
+  <a
+    href="{{ .SiteURL }}/api/auth/confirm?token_hash={{ .TokenHash }}&amp;type=email&amp;next={{ .RedirectTo }}"
+    >Click here to sign in</a
+  >
+</p>
+<p>
+  The link is valid for one hour. If you didn't request it, ignore this email.
+</p>
