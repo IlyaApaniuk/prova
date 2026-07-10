@@ -9,6 +9,7 @@ import { type Locale } from "@/i18n/routing";
 import { findApplication } from "@/lib/applications";
 import { getUser } from "@/lib/auth/session";
 import { getProfileByUserId } from "@/lib/candidates";
+import { getStudioReviewer } from "@/lib/studios";
 import { formatSalaryRange } from "@/lib/format";
 import { buildJobPostingJsonLd } from "@/lib/seo/job-posting";
 import { getVacancyBySlug } from "@/lib/vacancies";
@@ -50,7 +51,10 @@ export default async function VacancyPage({ params }: { params: PageParams }) {
   ]);
   if (!vacancy) notFound();
 
-  const profile = user ? await getProfileByUserId(user.id) : null;
+  const [profile, reviewer] = await Promise.all([
+    user ? getProfileByUserId(user.id) : null,
+    getStudioReviewer(vacancy.studioId),
+  ]);
   const application = profile
     ? await findApplication(vacancy.id, profile.id)
     : null;
@@ -198,6 +202,14 @@ export default async function VacancyPage({ params }: { params: PageParams }) {
           <p className="border-cognac text-muted-foreground mt-5 border-l-2 pl-3.5 text-sm leading-relaxed">
             {t("policyBadge")}
           </p>
+          {reviewer ? (
+            <p className="text-muted-foreground mt-4 text-sm">
+              {t("reviewerLine", {
+                name: reviewer.name,
+                role: reviewer.role ?? "",
+              })}
+            </p>
+          ) : null}
           <div className="mt-6 flex flex-col gap-2">
             <Link
               href={`/jobs/${vacancy.slug}/apply`}

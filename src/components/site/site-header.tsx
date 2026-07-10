@@ -3,13 +3,16 @@ import { signOut } from "@/app/actions/auth";
 import { LocaleSwitcher } from "@/components/site/locale-switcher";
 import { Link } from "@/i18n/navigation";
 import { getUser } from "@/lib/auth/session";
+import { getStudioMemberForUser } from "@/lib/studios";
 
 export async function SiteHeader() {
-  const [t, tAuth, user] = await Promise.all([
+  const [t, tAuth, tDashboard, user] = await Promise.all([
     getTranslations("Jobs"),
     getTranslations("Auth"),
+    getTranslations("Dashboard"),
     getUser(),
   ]);
+  const member = user ? await getStudioMemberForUser(user) : null;
 
   const navLinkClass =
     "text-muted-foreground hover:text-foreground focus-visible:outline-cognac font-mono text-[0.7rem] tracking-[0.12em] uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2";
@@ -28,6 +31,11 @@ export async function SiteHeader() {
           <Link href="/jobs" className={navLinkClass}>
             {t("listTitle")}
           </Link>
+          {member ? (
+            <Link href="/dashboard" className={navLinkClass}>
+              {tDashboard("navTitle")}
+            </Link>
+          ) : null}
           {user ? (
             <form action={signOut} className="flex items-center gap-3">
               <span
