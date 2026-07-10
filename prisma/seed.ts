@@ -37,6 +37,29 @@ async function main() {
     },
   });
 
+  // Studio leads — linked to Supabase auth by email on their first sign-in.
+  await prisma.studioMember.upsert({
+    where: { email: "lead@nordwind.test" },
+    update: {},
+    create: {
+      studioId: nordwind.id,
+      email: "lead@nordwind.test",
+      name: "Anna Weber",
+      role: "Senior interior designer",
+    },
+  });
+
+  await prisma.studioMember.upsert({
+    where: { email: "lead@karman.test" },
+    update: {},
+    create: {
+      studioId: karman.id,
+      email: "lead@karman.test",
+      name: "Taras Karman",
+      role: "Founder, lead architect",
+    },
+  });
+
   await prisma.vacancy.upsert({
     where: { slug: "nordwind-middle-interior-designer" },
     update: {},
@@ -90,7 +113,7 @@ async function main() {
     },
   });
 
-  console.log("Seeded: 2 studios, 2 published vacancies");
+  console.log("Seeded: 2 studios, 2 leads, 2 published vacancies");
 }
 
 main()

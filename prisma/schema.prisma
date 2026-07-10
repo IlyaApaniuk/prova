@@ -126,7 +126,10 @@ model Studio {
 model StudioMember {
   id       String  @id @default(cuid())
   studioId String
-  userId   String  @unique // one login per studio in v1
+  // One login per studio in v1. We onboard a lead by email; userId is
+  // backfilled from Supabase auth on their first sign-in.
+  email    String  @unique
+  userId   String? @unique
   name     String
   role     String? // "Senior designer" — shown as reviewer
   photoUrl String?
