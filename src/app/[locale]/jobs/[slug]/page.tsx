@@ -6,6 +6,9 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { Link } from "@/i18n/navigation";
 import { type Locale } from "@/i18n/routing";
+import { findApplication } from "@/lib/applications";
+import { getUser } from "@/lib/auth/session";
+import { getProfileByUserId } from "@/lib/candidates";
 import { formatSalaryRange } from "@/lib/format";
 import { buildJobPostingJsonLd } from "@/lib/seo/job-posting";
 import { getVacancyBySlug } from "@/lib/vacancies";
@@ -40,11 +43,22 @@ export default async function VacancyPage({ params }: { params: PageParams }) {
   const { locale, slug } = await params;
   setRequestLocale(locale as Locale);
 
-  const [t, vacancy] = await Promise.all([
+  const [t, vacancy, user] = await Promise.all([
     getTranslations("Jobs"),
     getVacancyBySlug(slug),
+    getUser(),
   ]);
   if (!vacancy) notFound();
+
+  const profile = user ? await getProfileByUserId(user.id) : null;
+  const application = profile
+    ? await findApplication(vacancy.id, profile.id)
+    : null;
+  const ctaLabel = !application
+    ? t("applyCta")
+    : application.status === "STARTED"
+      ? t("continueCta")
+      : t("viewApplicationCta");
 
   const salary = formatSalaryRange(
     locale,
@@ -186,12 +200,14 @@ export default async function VacancyPage({ params }: { params: PageParams }) {
           </p>
           <div className="mt-6 flex flex-col gap-2">
             <Link
-              href="/#waitlist"
+              href={`/jobs/${vacancy.slug}/apply`}
               className="bg-primary text-primary-foreground focus-visible:outline-cognac inline-block w-fit px-5 py-3 text-sm font-semibold transition-transform duration-300 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2"
             >
-              {t("applyCta")} →
+              {ctaLabel} →
             </Link>
-            <p className="text-taupe text-xs">{t("applySoon")}</p>
+            {!user ? (
+              <p className="text-taupe text-xs">{t("applyAuthNote")}</p>
+            ) : null}
           </div>
         </section>
 

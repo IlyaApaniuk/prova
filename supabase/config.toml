@@ -84,7 +84,7 @@ allowed_cidrs_v6 = ["::/0"]
 # [db.ssl_enforcement]
 # enabled = true
 
-# Trimmed local stack: prova only needs db + auth + api + studio + inbucket.
+# Trimmed local stack: db + auth + api + storage + studio + inbucket.
 [realtime]
 enabled = false
 # Bind realtime via either IPv4 or IPv6. (default: IPv4)
@@ -113,17 +113,18 @@ port = 55324
 # admin_email = "admin@email.com"
 # sender_name = "Admin"
 
+# Storage holds test-task submissions (private bucket, signed-URL uploads).
 [storage]
-enabled = false
+enabled = true
 # The maximum file size allowed (e.g. "5MB", "500KB").
 file_size_limit = "50MiB"
 
-# Uncomment to configure local storage buckets
-# [storage.buckets.images]
-# public = false
-# file_size_limit = "50MiB"
-# allowed_mime_types = ["image/png", "image/jpeg"]
-# objects_path = "./images"
+# Mirror this bucket in the cloud project when we deploy (the app also
+# creates it on demand via the admin client).
+[storage.buckets.submissions]
+public = false
+file_size_limit = "25MiB"
+allowed_mime_types = ["application/pdf"]
 
 # Allow connections via S3 compatible clients
 [storage.s3_protocol]
