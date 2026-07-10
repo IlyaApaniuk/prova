@@ -15,6 +15,17 @@ export const getStudioReviewer = cache((studioId: string) =>
   }),
 );
 
+/**
+ * Lead contact for the match moment — includes email, so this must only be
+ * rendered to the application's own candidate once MATCHED.
+ */
+export const getStudioContact = cache((studioId: string) =>
+  prisma.studioMember.findFirst({
+    where: { studioId },
+    select: { name: true, role: true, email: true },
+  }),
+);
+
 export const getStudioMemberForUser = cache(async (user: User) => {
   const byId = await prisma.studioMember.findUnique({
     where: { userId: user.id },

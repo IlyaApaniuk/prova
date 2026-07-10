@@ -188,13 +188,27 @@
     "statusSTARTED": "You've started — submit whenever the work is ready.",
     "statusSUBMITTED": "Submitted. The studio hasn't opened it yet — the moment they do, this flips to \"in review\".",
     "statusIN_REVIEW": "The studio is looking at your work right now.",
-    "statusINTERESTED": "The studio is interested and wants to continue — check your email to confirm.",
+    "statusINTERESTED": "The studio is interested and wants to continue — confirm below and we'll exchange contacts.",
     "statusMATCHED": "It's a match — contacts are exchanged. You talk directly now.",
     "statusFINAL": "You're in the final conversations with the studio.",
     "statusHIRED": "Hired. Congratulations — this is what the whole path was for.",
     "statusDECLINED": "The studio decided not to continue — always with a reason. Check your email.",
     "statusWITHDRAWN": "You chose not to continue. This thread is closed.",
-    "statusEXPIRED": "The studio went quiet for too long, so we closed this application. That's a timeout on their side — not a rejection of your work. It counts against the studio's public response stats."
+    "statusEXPIRED": "The studio went quiet for too long, so we closed this application. That's a timeout on their side — not a rejection of your work. It counts against the studio's public response stats.",
+    "interestFrom": "A message from {studio}",
+    "confirmTitle": "The studio wants to continue. Your move.",
+    "confirmNote": "Confirming exchanges contacts: {studio} gets your email, you get theirs. Nothing else changes — you're deciding to talk, not to accept anything.",
+    "confirmIncognitoNote": "You're incognito. Confirming shares your name, portfolio and email with {studio} — and only with them. Passing shares nothing, ever.",
+    "confirmCta": "Continue with {studio}",
+    "confirming": "One moment…",
+    "passCta": "Not this time",
+    "passConfirm": "Close this application? The studio will see you chose not to continue — that's all they'll see.",
+    "passYes": "Yes, close it",
+    "passNo": "Keep it open",
+    "withdrawCta": "Withdraw application",
+    "withdrawConfirm": "Withdraw? The studio simply sees you chose not to continue.",
+    "contactTitle": "Direct contact",
+    "contactNote": "It's a match. From here you talk to {studio} directly — the platform steps back but keeps the light on the outcome."
   },
   "Dashboard": {
     "navTitle": "Dashboard",
@@ -247,6 +261,9 @@
     "sending": "Sending…",
     "cancel": "Cancel",
     "optionalMark": "optional",
-    "requiredMark": "required"
+    "requiredMark": "required",
+    "withdrawnBanner": "The candidate chose not to continue. That's the whole story — no identity was shared.",
+    "matchedTitle": "It's a match",
+    "matchedNote": "Contacts are exchanged — talk directly. We'll check in about the outcome so the path stays lit for everyone."
   }
 }

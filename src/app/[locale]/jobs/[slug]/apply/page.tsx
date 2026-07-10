@@ -4,6 +4,8 @@ import { notFound, redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { startApplication } from "@/app/actions/apply";
 import { ApplicationSteps } from "@/components/apply/application-steps";
+import { MatchActions, WithdrawButton } from "@/components/apply/match-actions";
+import { MatchContact } from "@/components/apply/match-contact";
 import { SubmissionForm } from "@/components/apply/submission-form";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
@@ -135,6 +137,38 @@ export default async function ApplyPage({ params }: { params: PageParams }) {
               </div>
             </section>
 
+            {application!.interestMessage &&
+            (application!.status === "INTERESTED" ||
+              application!.status === "MATCHED") ? (
+              <blockquote className="border-graphite bg-card mt-8 border p-5 text-sm leading-relaxed">
+                <p className="text-cognac-deep font-mono text-[0.66rem] tracking-[0.12em] uppercase">
+                  {t("interestFrom", { studio: vacancy.studio.name })}
+                </p>
+                <p className="mt-2">
+                  &ldquo;{application!.interestMessage}&rdquo;
+                </p>
+              </blockquote>
+            ) : null}
+
+            {application!.status === "INTERESTED" ? (
+              <div className="mt-6">
+                <MatchActions
+                  applicationId={application!.id}
+                  isIncognito={profile!.isIncognito}
+                  studioName={vacancy.studio.name}
+                />
+              </div>
+            ) : null}
+
+            {application!.status === "MATCHED" ||
+            application!.status === "FINAL" ||
+            application!.status === "HIRED" ? (
+              <MatchContact
+                studioId={vacancy.studioId}
+                studioName={vacancy.studio.name}
+              />
+            ) : null}
+
             <section className="border-hairline bg-card mt-8 border p-6">
               <h2 className="text-cognac-deep font-mono text-[0.7rem] tracking-[0.16em] uppercase">
                 {t("yourWork")}
@@ -187,6 +221,13 @@ export default async function ApplyPage({ params }: { params: PageParams }) {
                 ) : null}
               </dl>
             </section>
+
+            {application!.status === "SUBMITTED" ||
+            application!.status === "IN_REVIEW" ||
+            application!.status === "MATCHED" ||
+            application!.status === "FINAL" ? (
+              <WithdrawButton applicationId={application!.id} />
+            ) : null}
           </>
         )}
       </main>

@@ -8,7 +8,10 @@ test("vacancy CTA sends signed-out visitors through the auth gate", async ({
 }) => {
   await page.goto(`/en/jobs/${SLUG}`);
   await page.getByRole("link", { name: /start the test/i }).click();
-  await expect(page).toHaveURL(/\/en\/auth\/sign-in\?next=/);
+  // Generous timeout: in dev the first hit compiles the route.
+  await expect(page).toHaveURL(/\/en\/auth\/sign-in\?next=/, {
+    timeout: 15_000,
+  });
 });
 
 // Full candidate journey: auth → profile → start → submit → stepper.

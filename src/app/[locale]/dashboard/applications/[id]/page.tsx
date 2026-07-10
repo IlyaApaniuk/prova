@@ -44,6 +44,18 @@ async function submissionSignedUrl(path: string): Promise<string | null> {
   }
 }
 
+// Auth emails live in Supabase, not in CandidateProfile — fetched only once
+// a match grants the exchange.
+async function candidateEmail(userId: string): Promise<string | null> {
+  try {
+    const admin = createAdminClient();
+    const { data } = await admin.auth.admin.getUserById(userId);
+    return data.user?.email ?? null;
+  } catch {
+    return null;
+  }
+}
+
 function Chip({ children }: { children: React.ReactNode }) {
   return (
     <span className="border-hairline text-muted-foreground border px-2 py-1 font-mono text-[0.66rem] tracking-[0.06em] uppercase">
@@ -76,9 +88,16 @@ export default async function ReviewApplicationPage({
   const name = revealed
     ? `${candidate.firstName} ${candidate.lastName}`
     : t("incognitoName");
-  const fileUrl = application.submissionFileUrl
-    ? await submissionSignedUrl(application.submissionFileUrl)
-    : null;
+  const matched =
+    application.status === "MATCHED" ||
+    application.status === "FINAL" ||
+    application.status === "HIRED";
+  const [fileUrl, contactEmail] = await Promise.all([
+    application.submissionFileUrl
+      ? submissionSignedUrl(application.submissionFileUrl)
+      : null,
+    matched ? candidateEmail(candidate.userId) : null,
+  ]);
 
   const workPanel = (
     <div className="flex flex-col gap-5">
@@ -262,6 +281,32 @@ export default async function ReviewApplicationPage({
           <p className="border-hairline bg-card text-muted-foreground mt-6 border p-4 text-sm leading-relaxed">
             {t("declinedWith")} {application.declineReason}
           </p>
+        ) : null}
+        {application.status === "WITHDRAWN" ? (
+          <p className="border-hairline bg-card text-muted-foreground mt-6 border p-4 text-sm leading-relaxed">
+            {t("withdrawnBanner")}
+          </p>
+        ) : null}
+        {matched ? (
+          <section className="border-cognac/50 bg-cognac/5 mt-6 border p-5">
+            <p className="text-cognac-deep font-mono text-[0.7rem] tracking-[0.16em] uppercase">
+              {t("matchedTitle")}
+            </p>
+            <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+              {t("matchedNote")}
+            </p>
+            <div className="mt-3 text-sm">
+              <span className="font-semibold">{name}</span>
+              {contactEmail ? (
+                <a
+                  href={`mailto:${contactEmail}`}
+                  className="hover:text-cognac-deep ml-3 font-mono text-xs underline underline-offset-4 transition-colors"
+                >
+                  {contactEmail}
+                </a>
+              ) : null}
+            </div>
+          </section>
         ) : null}
 
         <div className="mt-8">

@@ -188,13 +188,27 @@
     "statusSTARTED": "Zacząłeś — wyślij, kiedy praca będzie gotowa.",
     "statusSUBMITTED": "Wysłano. Studio jeszcze nie otworzyło pracy — gdy tylko to zrobi, status zmieni się na „w recenzji”.",
     "statusIN_REVIEW": "Studio właśnie ogląda twoją pracę.",
-    "statusINTERESTED": "Studio jest zainteresowane i chce kontynuować — sprawdź e-mail, aby potwierdzić.",
+    "statusINTERESTED": "Studio jest zainteresowane i chce kontynuować — potwierdź poniżej, a wymienimy kontakty.",
     "statusMATCHED": "Match — kontakty wymienione. Dalej rozmawiacie bezpośrednio.",
     "statusFINAL": "Jesteś na końcowych rozmowach ze studiem.",
     "statusHIRED": "Zatrudniono cię. Gratulacje — po to była cała ta droga.",
     "statusDECLINED": "Studio zdecydowało się nie kontynuować — zawsze z podanym powodem. Sprawdź e-mail.",
     "statusWITHDRAWN": "Zdecydowałeś się nie kontynuować. Ten wątek jest zamknięty.",
-    "statusEXPIRED": "Studio milczało zbyt długo, więc zamknęliśmy tę aplikację. To timeout po ich stronie — nie odrzucenie twojej pracy. Liczy się do publicznych statystyk odpowiedzi studia."
+    "statusEXPIRED": "Studio milczało zbyt długo, więc zamknęliśmy tę aplikację. To timeout po ich stronie — nie odrzucenie twojej pracy. Liczy się do publicznych statystyk odpowiedzi studia.",
+    "interestFrom": "Wiadomość od {studio}",
+    "confirmTitle": "Studio chce kontynuować. Twój ruch.",
+    "confirmNote": "Potwierdzenie wymienia kontakty: {studio} dostaje twój e-mail, ty ich. Nic więcej się nie zmienia — zgadzasz się na rozmowę, nie na ofertę.",
+    "confirmIncognitoNote": "Jesteś incognito. Potwierdzenie ujawni twoje imię, portfolio i e-mail dla {studio} — i tylko dla nich. Odmowa nie ujawni niczego, nigdy.",
+    "confirmCta": "Kontynuuj ze {studio}",
+    "confirming": "Chwileczkę…",
+    "passCta": "Nie tym razem",
+    "passConfirm": "Zamknąć tę aplikację? Studio zobaczy tylko, że zdecydowałeś się nie kontynuować.",
+    "passYes": "Tak, zamknij",
+    "passNo": "Zostaw otwartą",
+    "withdrawCta": "Wycofaj aplikację",
+    "withdrawConfirm": "Wycofać? Studio po prostu zobaczy, że zdecydowałeś się nie kontynuować.",
+    "contactTitle": "Bezpośredni kontakt",
+    "contactNote": "To match. Od teraz rozmawiasz ze {studio} bezpośrednio — platforma odsuwa się, ale trzyma światło na wyniku."
   },
   "Dashboard": {
     "navTitle": "Panel",
@@ -247,6 +261,9 @@
     "sending": "Wysyłamy…",
     "cancel": "Anuluj",
     "optionalMark": "opcjonalnie",
-    "requiredMark": "wymagane"
+    "requiredMark": "wymagane",
+    "withdrawnBanner": "Kandydat zdecydował się nie kontynuować. To cała historia — żadne dane nie zostały ujawnione.",
+    "matchedTitle": "To match",
+    "matchedNote": "Kontakty wymienione — rozmawiajcie bezpośrednio. Zapytamy o wynik, żeby droga pozostała przejrzysta dla wszystkich."
   }
 }
