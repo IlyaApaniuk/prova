@@ -26,6 +26,25 @@ export const getStudioContact = cache((studioId: string) =>
   }),
 );
 
+/** All studio vacancies with visible-application counts (STARTED excluded). */
+export const getStudioVacancies = cache((studioId: string) =>
+  prisma.vacancy.findMany({
+    where: { studioId },
+    orderBy: { createdAt: "desc" },
+    include: {
+      _count: {
+        select: {
+          applications: { where: { status: { not: "STARTED" } } },
+        },
+      },
+    },
+  }),
+);
+
+export const getStudioById = cache((id: string) =>
+  prisma.studio.findUnique({ where: { id } }),
+);
+
 export const getStudioMemberForUser = cache(async (user: User) => {
   const byId = await prisma.studioMember.findUnique({
     where: { userId: user.id },

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { signInWithMagicLink } from "./utils";
+import { signInWithMagicLink, signOut } from "./utils";
 
 test("sign-in page renders Google and magic-link options", async ({ page }) => {
   await page.goto("/en/auth/sign-in");
@@ -31,16 +31,12 @@ test("magic link signs the user in end to end", async ({ page, request }) => {
   await signInWithMagicLink(page, request, email, "/en/jobs");
   await expect(page).toHaveURL(/\/en\/jobs$/);
   await expect(
-    page.getByRole("banner").getByRole("button", { name: /sign out/i }),
+    page.getByRole("banner").getByRole("button", { name: /account/i }),
   ).toBeVisible();
 
-  // Sign-out redirects to the landing (no session UI there), so check the
-  // signed-out header state back on the jobs page.
-  await page
-    .getByRole("banner")
-    .getByRole("button", { name: /sign out/i })
-    .click();
-  await expect(page).toHaveURL(/\/en$/);
+  // Sign-out lives in the account menu and redirects to the landing, so
+  // check the signed-out header state back on the jobs page.
+  await signOut(page);
   await page.goto("/en/jobs");
   await expect(
     page.getByRole("banner").getByRole("link", { name: /sign in/i }),

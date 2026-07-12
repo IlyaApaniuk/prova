@@ -3,6 +3,182 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 /**
+ * GoTrue admin over plain fetch: supabase-js pulls in realtime, which needs
+ * a WebSocket global that Node 20 doesn't have. The seed only needs one
+ * idempotent "ensure user" call.
+ */
+async function ensureAuthUser(
+  url: string,
+  key: string,
+  email: string,
+): Promise<string | undefined> {
+  const headers = {
+    apikey: key,
+    Authorization: `Bearer ${key}`,
+    "Content-Type": "application/json",
+  };
+  const created = await fetch(`${url}/auth/v1/admin/users`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ email, email_confirm: true }),
+  });
+  if (created.ok) {
+    const user = (await created.json()) as { id?: string };
+    if (user.id) return user.id;
+  }
+  const list = await fetch(`${url}/auth/v1/admin/users?page=1&per_page=1000`, {
+    headers,
+  });
+  if (!list.ok) return undefined;
+  const data = (await list.json()) as {
+    users?: { id: string; email?: string }[];
+  };
+  return data.users?.find((user) => user.email === email)?.id;
+}
+
+/**
+ * Demo candidate with mid-path applications, so the whole stepper can be
+ * clicked through locally (sign in as candidate@demo.test via Mailpit).
+ * Needs the local Supabase stack for the auth user — skipped without env.
+ */
+async function seedDemoCandidate(vacancies: {
+  nordwindId: string;
+  karmanId: string;
+}) {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SECRET_KEY;
+  if (!url || !key) {
+    console.log("Skipped demo candidate (no Supabase env)");
+    return;
+  }
+
+  const email = "candidate@demo.test";
+  const userId = await ensureAuthUser(url, key, email);
+  if (!userId) {
+    console.warn("Could not create/find the demo candidate auth user");
+    return;
+  }
+
+  const profile = await prisma.candidateProfile.upsert({
+    where: { userId },
+    update: {},
+    create: {
+      userId,
+      firstName: "Demo",
+      lastName: "Candidate",
+      city: "Kyiv",
+      country: "Ukraine",
+      experience: "THREE_TO_6",
+      software: ["SketchUp", "3ds Max", "Corona"],
+      headline: "Interior designer focused on residential projects",
+      portfolioLinks: ["https://www.behance.net/demo-candidate"],
+    },
+  });
+
+  const dayMs = 24 * 60 * 60 * 1000;
+  const started = new Date(Date.now() - 6 * dayMs);
+  const submitted = new Date(Date.now() - 5 * dayMs);
+  const reviewed = new Date(Date.now() - 3 * dayMs);
+  const interested = new Date(Date.now() - 1 * dayMs);
+
+  // Nordwind: INTERESTED — sign in as the demo candidate and live the
+  // confirm moment yourself.
+  await prisma.application.upsert({
+    where: {
+      vacancyId_candidateId: {
+        vacancyId: vacancies.nordwindId,
+        candidateId: profile.id,
+      },
+    },
+    update: {},
+    create: {
+      vacancyId: vacancies.nordwindId,
+      candidateId: profile.id,
+      status: "INTERESTED",
+      submissionLink: "https://www.behance.net/demo-candidate/zoning-32m2",
+      submissionComment: "Layout in SketchUp — the brief allowed either tool.",
+      interestMessage:
+        "Loved how you handled the zoning around the wet areas — let's talk.",
+      submittedAt: submitted,
+      reviewedAt: reviewed,
+      createdAt: started,
+      events: {
+        create: [
+          {
+            actor: "CANDIDATE",
+            type: "status_changed",
+            payload: { from: null, to: "STARTED" },
+            createdAt: started,
+          },
+          {
+            actor: "CANDIDATE",
+            type: "status_changed",
+            payload: { from: "STARTED", to: "SUBMITTED" },
+            createdAt: submitted,
+          },
+          {
+            actor: "COMPANY",
+            type: "status_changed",
+            payload: { from: "SUBMITTED", to: "IN_REVIEW" },
+            createdAt: reviewed,
+          },
+          {
+            actor: "COMPANY",
+            type: "status_changed",
+            payload: { from: "IN_REVIEW", to: "INTERESTED" },
+            createdAt: interested,
+          },
+        ],
+      },
+    },
+  });
+
+  // Karman: IN_REVIEW — the mid-path stepper state.
+  await prisma.application.upsert({
+    where: {
+      vacancyId_candidateId: {
+        vacancyId: vacancies.karmanId,
+        candidateId: profile.id,
+      },
+    },
+    update: {},
+    create: {
+      vacancyId: vacancies.karmanId,
+      candidateId: profile.id,
+      status: "IN_REVIEW",
+      submissionLink: "https://www.behance.net/demo-candidate/cafe-render",
+      submittedAt: submitted,
+      reviewedAt: reviewed,
+      createdAt: started,
+      events: {
+        create: [
+          {
+            actor: "CANDIDATE",
+            type: "status_changed",
+            payload: { from: null, to: "STARTED" },
+            createdAt: started,
+          },
+          {
+            actor: "CANDIDATE",
+            type: "status_changed",
+            payload: { from: "STARTED", to: "SUBMITTED" },
+            createdAt: submitted,
+          },
+          {
+            actor: "COMPANY",
+            type: "status_changed",
+            payload: { from: "SUBMITTED", to: "IN_REVIEW" },
+            createdAt: reviewed,
+          },
+        ],
+      },
+    },
+  });
+
+  console.log(`Seeded demo candidate: ${email}`);
+}
+
+/**
  * Dev seed: fictional pilot-shaped data (real studio names only land after
  * agreements are signed). Idempotent — upserts by slug.
  */
@@ -37,6 +213,33 @@ async function main() {
     },
   });
 
+  // Empty third studio: e2e studio-management tests own its lead mailbox
+  // exclusively (parallel spec files must never share magic-link inboxes).
+  const praxis = await prisma.studio.upsert({
+    where: { slug: "studio-praxis" },
+    update: {},
+    create: {
+      slug: "studio-praxis",
+      name: "Studio Praxis",
+      city: "Warsaw",
+      country: "Poland",
+      about: "Compact interior practice used for demos and testing.",
+      links: {},
+      showcase: [],
+    },
+  });
+
+  await prisma.studioMember.upsert({
+    where: { email: "lead@praxis.test" },
+    update: {},
+    create: {
+      studioId: praxis.id,
+      email: "lead@praxis.test",
+      name: "Ola Nowak",
+      role: "Lead designer",
+    },
+  });
+
   // Studio leads — linked to Supabase auth by email on their first sign-in.
   await prisma.studioMember.upsert({
     where: { email: "lead@nordwind.test" },
@@ -60,7 +263,7 @@ async function main() {
     },
   });
 
-  await prisma.vacancy.upsert({
+  const nordwindVacancy = await prisma.vacancy.upsert({
     where: { slug: "nordwind-middle-interior-designer" },
     update: {},
     create: {
@@ -87,7 +290,7 @@ async function main() {
     },
   });
 
-  await prisma.vacancy.upsert({
+  const karmanVacancy = await prisma.vacancy.upsert({
     where: { slug: "karman-3d-visualizer" },
     update: {},
     create: {
@@ -113,7 +316,12 @@ async function main() {
     },
   });
 
-  console.log("Seeded: 2 studios, 2 leads, 2 published vacancies");
+  await seedDemoCandidate({
+    nordwindId: nordwindVacancy.id,
+    karmanId: karmanVacancy.id,
+  });
+
+  console.log("Seeded: 3 studios, 3 leads, 2 published vacancies");
 }
 
 main()

@@ -103,12 +103,13 @@ export async function applyToVacancy(
   });
 }
 
-/** Header sign-out (works from any page with the app header). */
+/** Header sign-out — lives inside the account dropdown since the menu rework. */
 export async function signOut(page: Page) {
   await page.goto("/en/jobs");
   await page
     .getByRole("banner")
-    .getByRole("button", { name: /sign out/i })
+    .getByRole("button", { name: /account/i })
     .click();
+  await page.getByRole("menuitem", { name: /sign out/i }).click();
   await expect(page).toHaveURL(/\/en$/);
 }

@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { signOut } from "@/app/actions/auth";
+import { AccountMenu, MobileMenu } from "@/components/site/header-menu";
 import { LocaleSwitcher } from "@/components/site/locale-switcher";
 import { Link } from "@/i18n/navigation";
 import { getUser } from "@/lib/auth/session";
@@ -27,33 +27,30 @@ export async function SiteHeader() {
           <span className="bg-cognac inline-block h-px w-3.5" aria-hidden />
           prova
         </Link>
-        <nav className="flex items-center gap-4">
-          <Link href="/jobs" className={navLinkClass}>
-            {t("listTitle")}
-          </Link>
-          {member ? (
-            <Link href="/dashboard" className={navLinkClass}>
-              {tDashboard("navTitle")}
+        <nav className="flex items-center gap-3">
+          {/* Desktop: inline links + account dropdown */}
+          <div className="hidden items-center gap-4 sm:flex">
+            <Link href="/jobs" className={navLinkClass}>
+              {t("listTitle")}
             </Link>
-          ) : null}
-          {user ? (
-            <form action={signOut} className="flex items-center gap-3">
-              <span
-                className="text-muted-foreground hidden max-w-[18ch] truncate font-mono text-[0.7rem] sm:inline"
-                title={user.email ?? undefined}
-              >
-                {user.email}
-              </span>
-              <button type="submit" className={navLinkClass}>
-                {tAuth("signOutCta")}
-              </button>
-            </form>
-          ) : (
-            <Link href="/auth/sign-in" className={navLinkClass}>
-              {tAuth("signInCta")}
-            </Link>
-          )}
+            {member ? (
+              <Link href="/dashboard" className={navLinkClass}>
+                {tDashboard("navTitle")}
+              </Link>
+            ) : null}
+            {user?.email ? (
+              <AccountMenu email={user.email} isMember={Boolean(member)} />
+            ) : (
+              <Link href="/auth/sign-in" className={navLinkClass}>
+                {tAuth("signInCta")}
+              </Link>
+            )}
+          </div>
           <LocaleSwitcher />
+          {/* Mobile: everything behind the burger */}
+          <div className="sm:hidden">
+            <MobileMenu signedIn={Boolean(user)} isMember={Boolean(member)} />
+          </div>
         </nav>
       </div>
     </header>

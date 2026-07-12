@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { DashboardNav } from "@/components/dashboard/dashboard-nav";
 import { StatusChip } from "@/components/dashboard/status-chip";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
@@ -73,16 +74,17 @@ export default async function DashboardPage({
         <h1 className="mt-3 font-serif text-4xl font-medium tracking-tight text-balance">
           {t("title")}
         </h1>
-        <p className="text-muted-foreground mt-4 max-w-[56ch] text-sm">
+        <DashboardNav active="applications" />
+        <p className="text-muted-foreground mt-6 max-w-[56ch] text-sm">
           {t("subtitle")}
         </p>
 
         {applications.length === 0 ? (
-          <p className="border-hairline text-muted-foreground mt-10 border p-6 text-sm leading-relaxed">
+          <p className="border-hairline text-muted-foreground mt-8 border p-6 text-sm leading-relaxed">
             {t("empty")}
           </p>
         ) : (
-          <div className="mt-10 flex flex-col">
+          <div className="mt-8 flex flex-col">
             {applications.map((application) => {
               const revealed =
                 !application.candidate.isIncognito || application.revealedAt;
@@ -93,27 +95,33 @@ export default async function DashboardPage({
                 <Link
                   key={application.id}
                   href={`/dashboard/applications/${application.id}`}
-                  className="border-border hover:bg-card grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 border-t px-2 py-4 transition-colors first:border-t-0 sm:grid-cols-[1.2fr_1fr_auto_auto]"
+                  className="border-border hover:bg-card flex flex-col gap-1.5 border-t px-2 py-4 transition-colors first:border-t-0 sm:grid sm:grid-cols-[1.3fr_1fr_13.5rem] sm:items-center sm:gap-x-4"
                 >
-                  <span className="font-medium">{name}</span>
-                  <span className="text-muted-foreground text-sm">
+                  <span className="min-w-0 truncate font-medium">{name}</span>
+                  <span className="text-muted-foreground min-w-0 truncate text-sm">
                     {application.vacancy.title}
                   </span>
-                  <span className="text-taupe font-mono text-xs tabular-nums">
-                    {application.submittedAt
-                      ? new Intl.DateTimeFormat(locale, {
-                          day: "numeric",
-                          month: "short",
-                        }).format(application.submittedAt)
-                      : "—"}
+                  {/* Fixed-width tail: per-row auto columns would shift the
+                      middle column between rows. */}
+                  <span className="flex items-center justify-between gap-3 sm:justify-end">
+                    <span className="text-taupe w-12 font-mono text-xs tabular-nums sm:text-right">
+                      {application.submittedAt
+                        ? new Intl.DateTimeFormat(locale, {
+                            day: "numeric",
+                            month: "short",
+                          }).format(application.submittedAt)
+                        : "—"}
+                    </span>
+                    <span className="flex w-32 justify-end">
+                      <StatusChip
+                        status={application.status}
+                        label={t(
+                          // STARTED never reaches studio queries.
+                          `status${application.status}` as "statusSUBMITTED",
+                        )}
+                      />
+                    </span>
                   </span>
-                  <StatusChip
-                    status={application.status}
-                    label={t(
-                      // STARTED never reaches studio queries.
-                      `status${application.status}` as "statusSUBMITTED",
-                    )}
-                  />
                 </Link>
               );
             })}
